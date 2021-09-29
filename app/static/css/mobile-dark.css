@@ -182,13 +182,7 @@ nav             { font-family: sans-serif}
     width: 65%;
 }
 
-.search-internet {
-    background: #080808; 
-    float: left;
-    width: 35%;
-}
-
-.search-agora-header, .search-internet-header {
+.search-agora-header {
     font-style: italic; 
     font-weight: bolder;
     margin-bottom: 1em;
