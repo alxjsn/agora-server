@@ -29,9 +29,6 @@ function processRanking(host, e) {
 function processUsername(h,e ){
     h.username = e.currentTarget.value
 }
-function processRepo(h, e){
-    h.repo = e.currentTarget.value
-}
 function processPull(host, e){
     host.autopull = e.currentTarget.checked
     localStorage["autoPull"] = JSON.stringify(host.autopull)
@@ -70,18 +67,6 @@ function showBrackets(){
     `
 }
 
-async function processRepoAdd(h, e,){
-    let response = await fetch(`${APIBASE}/repo`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({target: h.username, url: h.repo, format: "foam"})
-    })
-    let d = await response.json()
-    alert(JSON.stringify(d))
-}
-
 const Settings = {
     ranking: rawRanking,
     autopull: rawAutoPull,
@@ -93,14 +78,6 @@ const Settings = {
         </div>
         ${autoPull()}
         ${showBrackets()}
-        <br><br>
-        <div>
-            <h1>Add garden to agora</h1>
-            <div>Preferred agora username <input type="text" oninput="${processUsername}" value="${username || ''}"/></div>
-            <div>Repo git url <input type="text" oninput="${processRepo}", value="${repo || ''}"/></div>
-            <button onclick="${processRepoAdd}">Add repo</button>
-        </div>
-
     `
 }
 
