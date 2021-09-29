@@ -35,7 +35,7 @@ body {
     background: #000000; 
     color: #bfbfbf; 
     overflow-x: hidden; 
-    max-width: 60em;
+    width: 60em;
     font-size: var(--base-fontsize);
 }
 pre {
@@ -147,6 +147,7 @@ h6 {
 .topline-node{
     vertical-align: middle;
     overflow-y: auto;
+    width:  50%;
 }
 
 .topline-node-wrapper {

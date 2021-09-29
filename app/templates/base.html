@@ -73,8 +73,11 @@
                 <a href="/journals">journals</a>
                 |
                 <a href="/settings" style="text-decoration: none;">⚙️</a>
+                {#
+                TODO: enable once the css for the light theme is fixed
                 |
                 <a href="#" style="text-decoration: none;" class="theme-toggle">🌙</a>
+                #}
                 |
                 <a href="/agora-help" style="text-decoration: none;" class="help-button">❓</a>
             </div>
@@ -90,7 +93,7 @@
                             <input id="mini-cli" type="text" value="{{qstr}}" name="q" onfocus="this.value=''">
                         </form>
                     </div>
-                    <button id="mini-cli-clear" value="clear">clear</button>
+                    <button id="mini-cli-search" value="search">search</button>
                 </div>
             </div>
         </div>
