@@ -137,16 +137,6 @@ h6 {
 	align-items: center;
 }
 
-#hypothesis-frame {
-    
-}
-
-.hypothesis-adder {
-    display: block;
-    position: absolute;
-    bottom: 0px;
-}
-
 input[type="text"] {
     -webkit-box-sizing: border-box; // Safari/Chrome, other WebKit
     -moz-box-sizing: border-box;    // Firefox, other Gecko
@@ -290,17 +280,6 @@ input[type="text"] {
     max-height: 400px; 
 }
 
-.annotations { 
-    width: 100%;
-    display: flex;
-    background: #080808; 
-    color: #cfcfcf; 
-    padding: 0.5em; 
-    margin-bottom: 10px; 
-    /*border-radius: 10px;*/
-    gap: 10px;
-}
-
 .delta { 
     width: 100%;
     display: flex;
@@ -314,12 +293,6 @@ input[type="text"] {
 
 .delta-nodes {
     float: left;
-    width: 50%;
-}
-
-.delta-annotations {
-    background: #080808; 
-    float: right;
     width: 50%;
 }
 

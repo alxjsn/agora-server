@@ -19,7 +19,6 @@ import re
 import os
 from flask import current_app
 from . import config
-from . import feed
 from . import regexes
 from . import render
 from . import util
@@ -284,7 +283,6 @@ class Node:
         # [[push]] as in anagora.org/node/push.
         #
         # arg other should be a Node.
-        # TODO: actually add type annotations, this is 2021.
         #
         # TLDR: 
         # - [[push]] [[other]] 
@@ -341,10 +339,6 @@ class Node:
             for subnode in node.pushing(self):
                 subnodes.append(subnode)
         return subnodes
-
-    def annotations(self):
-        annotations = feed.get_by_uri(self.actual_uri)
-        return annotations
 
 
 class Subnode:

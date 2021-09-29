@@ -21,7 +21,6 @@ from flask import Blueprint, url_for, render_template, current_app, Response, re
 from markupsafe import escape
 from urllib.parse import parse_qs
 from . import db
-from . import feed
 from . import forms
 from . import graph
 from . import providers
@@ -86,11 +85,7 @@ def node(node, extension='', user_list=''):
             q=n.wikilink.replace('-', '%20'),
             qstr=n.wikilink.replace('-', ' '),
             render_graph=True if n.back_links() or n.subnodes else False,
-            config=current_app.config,
-            # disabled a bit superstitiously due to [[heisenbug]] after I added this everywhere :).
-            # sorry for the fuzzy thinking but I'm short on time and want to get things done.
-            # (...famous last words).
-            # annotations=n.annotations(),
+            config=current_app.config
             )
 
 @bp.route('/ttl/<node>') # perhaps deprecated
@@ -150,8 +145,7 @@ def index():
 def latest():
     return render_template('delta.html',
                            header="Recent deltas",
-                           subnodes=db.latest(),
-                           annotations=feed.get_latest())
+                           subnodes=db.latest())
 
 
 @bp.route('/now')

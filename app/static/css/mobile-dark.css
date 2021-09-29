@@ -127,17 +127,6 @@ nav             { font-family: sans-serif}
     max-height: 250px;
 }
 
-.annotations { 
-    width: 100%;
-    display: flex;
-    background: #080808; 
-    color: #cfcfcf; 
-    padding: 0.5em; 
-    margin-bottom: 10px; 
-    border-radius: 10px;
-    gap: 10px;
-}
-
 .delta { 
     width: 100%;
     display: flex;
@@ -151,12 +140,6 @@ nav             { font-family: sans-serif}
 
 .delta-nodes {
     float: left;
-    width: 50%;
-}
-
-.delta-annotations {
-    background: #080808; 
-    float: right;
     width: 50%;
 }
 
