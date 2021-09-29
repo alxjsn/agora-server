@@ -74,7 +74,7 @@ const Settings = {
     render: ({ ranking, autopull, brackets, checked, username, repo }) => html`
         <div>
             Enter comma separated list of users to uprank
-            <input type="text" placeholder="e.g. flancian, vera" oninput="${processRanking}" value="${ranking}" />
+            <input type="text" placeholder="e.g. zerocool, crashoverride" oninput="${processRanking}" value="${ranking}" />
         </div>
         ${autoPull()}
         ${showBrackets()}
