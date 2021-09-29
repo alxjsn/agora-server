@@ -24,7 +24,7 @@ fetch("{{config['URL_BASE']}}/graph/json/{{node.uri}}").then(res => res.json()).
         .height(container.clientHeight)
         .width(container.clientWidth)
         .onNodeClick(node => {
-            let url = "https://anagora.org/" + node.id;
+            let url = "{{config['URL_BASE']}}/" + node.id;
             location.assign(url)
         })
         .graphData(data)
