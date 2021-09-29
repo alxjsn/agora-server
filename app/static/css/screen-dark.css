@@ -38,6 +38,14 @@ body {
     max-width: 60em;
     font-size: var(--base-fontsize);
 }
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
 a               { color: #9fc6e0; }
 nav             { font-family: sans-serif}
 .page           { margin: 2em auto; width: 35em; border: 5px solid #ccc;
@@ -55,6 +63,11 @@ nav             { font-family: sans-serif}
 
 .content {
     line-height: var(--line-height);
+}
+
+.subnode img {
+    width: 80%;
+    height: 100%;
 }
 
 /* Format headers */
