@@ -30,28 +30,28 @@
     <link rel="search" type="application/opensearchdescription+xml" title="Agora" href={{url_for('agora.search_xml')}}>
     <link rel="stylesheet" type="text/css"
         href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
-    <link rel="stylesheet" media="screen" type="text/css"
-        href="{{ url_for('static',filename='css/screen-dark.css')}}?uncached108" id="theme-link" />
+    {% if not embed %}
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ url_for('static',filename='css/screen-dark.css')}}?uncached108" id="theme-link" />
+    {% endif %}
     {% if node is defined and not embed %}
         <script>
-            const NODENAME = "{{node.uri}}"
-            const AGORANAME = "{{config['URI_BASE']}}"
-            const AGORAURL = "{{config['URL_BASE']}}"
-            </script>
+            var NODENAME = "{{node.uri}}"
+            var AGORANAME = "{{config['URI_BASE']}}"
+            var AGORAURL = "{{config['URL_BASE']}}"
+        </script>
     {% endif %}
     
     <script>
-        const APIBASE = "{{config['API_BASE']}}"
+        var APIBASE = "{{config['API_BASE']}}"
     </script>
-
     {% if not embed %}
+        <script type=text/javascript src="{{url_for('static', filename='js/index.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         {% if render_graph %}
         <script src="//unpkg.com/force-graph"></script>
         {% endif %}
     {% endif %}
-
 </head>
 
 <body>
@@ -103,8 +103,6 @@
         {% block content %}
         {% endblock %}
     </div>
-
-    <script type=text/javascript src="{{url_for('static', filename='js/index.js')}}"></script>
 
 </body>
 

@@ -25,12 +25,30 @@ a, h1, h2, h3, h4, h5, h6       { color: #377ba8; }
 }
 
 .subnode, .links, .not-found {
-    /*background: #e6ffff; */
-    background: #f7faff;
-    color: #000;
+    background: #eee;
+    color: #000000;
 }
 
-.pulled-subnode, .pushed-subnode, .search, .search-internet, .stoa-public, .delta, .delta-nodes, .microblog_timeline { 
-    background: #f4f4f4; 
-    color: #000; 
+.delta { 
+    background: #eee;
+    color: #000000
+}
+
+.wikilink:link {
+    /* different color for wikilinks */
+    color: #377ba8;
+}
+
+.wikilink:visited {
+    /* different color for wikilinks */
+    color: #377ba8;
+}
+
+.listing { 
+    display: inline-block;
+    background: #eee; 
+    color: #000000; 
+    padding: 0.5em; 
+    margin-bottom: 10px; 
+    /*border-radius: 10px;*/
 }

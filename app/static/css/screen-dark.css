@@ -37,18 +37,16 @@ body {
     overflow-x: hidden; 
     width: 60em;
     font-size: var(--base-fontsize);
+    word-wrap: break-word;
 }
 pre {
+  background: #1d1a1af5;
+  color:  #ffffff;
   overflow-x: auto;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-  background: #000000;
 }
 code {
-  background: #000000;
+  color:  #ffffff;
+  background: #1d1a1af5;
 }
 a               { color: #9fc6e0; }
 nav             { font-family: sans-serif}
