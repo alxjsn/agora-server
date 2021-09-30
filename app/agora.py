@@ -271,7 +271,7 @@ def pull(node):
     current_app.logger.debug(f'pull [[{node}]]: Assembling node.')
     # default uprank: system account and maintainers
     # TODO: move to config.py
-    rank = ['agora', 'flancian', 'vera', 'neil']
+    rank = current_app.config['RANK']
 
     from copy import copy
     n = copy(G.node(node))
