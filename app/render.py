@@ -24,6 +24,7 @@ from . import regexes
 from . import util 
 from marko import Markdown, inline
 from orgpython import to_html
+from html import escape
 
 
 # Markdown
@@ -43,12 +44,36 @@ class WikilinkRendererMixin(object):
             # util.canonical_wikilink(self.escape_url(element.target)), self.render_children(element)
             util.canonical_wikilink(element.target), self.render_children(element)
         )
+# Modified the default behavior of HTMLRenderer to prevent XSS
+class ModifiedHTMLRendererMixin(object):
 
-class Wikilinks():
+    def render_html_block(self, element):
+        return escape(element.children)
+
+    def render_link(self, element):
+        template = '<a href="{}"{}>{}</a>'
+        title = (
+            ' title="{}"'.format(self.escape_html(element.title))
+            if element.title
+            else ""
+        )
+        url = self.escape_url(element.dest)
+        body = self.render_children(element)
+
+        # https://raw.githubusercontent.com/cujanovic/Markdown-XSS-Payloads/master/Markdown-XSS-Payloads.txt
+        blocked_schemas = ['data', 'javascript', 'vbscript']
+        for schema in blocked_schemas:
+            if url.lower().startswith(schema):
+                return url
+
+        return template.format(url, title, body)
+
+class Extras():
     elements = [WikilinkElement]
-    renderer_mixins = [WikilinkRendererMixin]
+    renderer_mixins = [WikilinkRendererMixin, ModifiedHTMLRendererMixin]
+        
 
-markdown = Markdown(extensions=[Wikilinks])
+markdown = Markdown(extensions=[Extras])
 
 
 # Org-mode -- simple but, well, bad for now.
