@@ -97,5 +97,3 @@ if (localStorage["ranking"]) {
     subnodes.insertAfter($(".main-header"))
 }
 
-console.log(APIBASE)
-

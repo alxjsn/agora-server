@@ -8,7 +8,6 @@ class DefaultConfig(object):
     # standard: no trailing slashes anywhere in variables.
     # with protocol
     URL_BASE = "https://anagora.org"
-    API_BASE = "https://api.anagora.org"
 
     #TODO change this to whatever prod is going to be
     # without protocol
@@ -34,8 +33,7 @@ class ProductionConfig(DefaultConfig):
 
 class DevelopmentConfig(DefaultConfig):
     URL_BASE = "http://localhost:5000"
-    URI_BASE = "example.com"
-    API_BASE = "http://localhost:5000"
+    URI_BASE = "localhost:5000"
 
 
     # EXPERIMENTS
