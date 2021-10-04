@@ -7,6 +7,11 @@ run:
 clean:
 	rm -rf node_modules
 	rm -rf venv
-	rm -rf build
-	rm app/static/js/*
+	rm -rf app/static/js
+purge:
+	rm -rf node_modules
+	rm -rf venv
+	rm -rf app/static/js
+	git clean -d -f
+	git reset --hard
 

@@ -9,7 +9,7 @@ RUN ["adduser", "-D", "agora"]
 
 FROM base as dev
 
-RUN apk add py3-pip npm yarn make g++ libxml2-dev libxslt-dev python3-dev musl-dev gcc linux-headers
+RUN apk add py3-pip npm yarn make g++ libxml2-dev libxslt-dev python3-dev musl-dev gcc linux-headers git
 RUN yarn global add parcel
 
 USER agora
@@ -23,7 +23,7 @@ USER root
 
 COPY . .
 
-RUN ["make", "clean"]
+RUN ["make", "purge"]
 RUN ["make", "build"]
 
 FROM base as prod
