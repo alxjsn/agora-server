@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // clear mini cli on clicking clear button
-  $("#mini-cli-clear").click(() => $("#mini-cli").val(""))
+  $("#mini-cli-search").click(() => $("#mini-cli")[0].form.submit())
 
   // focus mini-cli on key combo
   $(window).keydown(function (e) {
