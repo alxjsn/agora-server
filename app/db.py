@@ -175,7 +175,6 @@ class Node:
             self.wikilink = util.canonical_wikilink(wikilink)
         # Yikes, I really did whatever I wanted here. This is clearly not a full url. More like a 'url_path'.
         self.url = '/node/' + self.uri
-        self.actual_uri = current_app.config['URI_BASE'] + '/' + self.uri
         self.subnodes = []
 
     def __lt__(self, other):
@@ -634,7 +633,7 @@ def stats():
 
 def all_users():
     # hack hack.
-    users = os.listdir(os.path.join(current_app.config['AGORA_PATH'], 'garden'))
+    users = os.listdir(os.path.join(current_app.config['AGORA_PATH']))
     return sorted([User(u) for u in users], key=lambda x: x.uri.lower())
 
 def user_journals(user):

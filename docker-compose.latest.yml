@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  agora-server:
+    image: alxjsn/agora-server:latest
+    ports:
+      - 80:8000
+    environment:
+      AGORA_PATH: "/home/agora/garden"
+      URL_BASE: http://localhost
+      AGORA_NAME: localhost
+      RANK: 'agora' # user1,user,user3
+      ENABLE_STATS: False
+      ENABLE_AUTO_PULL: False
+      ENABLE_AUTO_STOA: False
+      JOURNAL_ENTRIES: 10
+    volumes:
+      - ./garden:/home/agora/garden

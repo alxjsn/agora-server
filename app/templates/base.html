@@ -24,7 +24,7 @@
     {% else %}
     <title>Agora</title>
     {% endif %}
-    <meta name="description" content="The Agora is a crowdsourced distributed knowledge graph: {{config['URI_BASE']}}." />
+    <meta name="description" content="The Agora is a crowdsourced distributed knowledge graph: {{config['AGORA_NAME']}}." />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="search" type="application/opensearchdescription+xml" title="Agora" href={{url_for('agora.search_xml')}}>
@@ -36,7 +36,6 @@
     {% if node is defined and not embed %}
         <script>
             var NODENAME = "{{node.uri}}"
-            var AGORANAME = "{{config['URI_BASE']}}"
             var AGORAURL = "{{config['URL_BASE']}}"
         </script>
     {% endif %}
@@ -57,7 +56,7 @@
         <div class="navigation">
             <div class="navigation-links">
                 <a href="/"><img src="/static/img/agora.png" class="logo" width="20px" height="20px"></a>
-                <a href="/">{{config['URI_BASE']}}</a>
+                <a href="/">{{config['AGORA_NAME']}}</a>
                 |
                 <a href="/nodes">nodes</a>
                 |

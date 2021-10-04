@@ -26,22 +26,8 @@ def create_app():
 
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    config = os.environ.get('AGORA_CONFIG', 'DevelopmentConfig')
-    app.config.from_object('app.config.' + config)
+    app.config.from_object('app.config.DefaultConfig')
     CORS(app)
-
-    # there's probably a better way to make this distinction, but this works.
-    if config == 'ProductionConfig':
-        logging.basicConfig(
-            filename='agora.log', 
-            level=logging.WARNING,
-            format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
-            )
-    else:
-        logging.basicConfig(
-            level=logging.DEBUG,
-            format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
-            )
 
     # ensure the instance folder exists
     try:

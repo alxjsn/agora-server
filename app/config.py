@@ -1,43 +1,13 @@
 import os
-import getpass
 
 class DefaultConfig(object):
-    AGORA_PATH = os.getenv('AGORA_PATH', os.path.join('/home', getpass.getuser(), 'agora'))
-    # deprecated/check if unused
-    AGORA_VERSION = '0.9'
-    # standard: no trailing slashes anywhere in variables.
-    # with protocol
-    URL_BASE = "https://anagora.org"
-
-    #TODO change this to whatever prod is going to be
-    # without protocol
-    URI_BASE = "anagora.org"
-    AGORA = URI_BASE
-    JOURNAL_ENTRIES = 10 # number of journal entries to load
-    RANK = ['agora']
+    AGORA_PATH = os.getenv('AGORA_PATH', '/home/agora/garden')
+    URL_BASE = os.getenv('URL_BASE', 'http://localhost:5000')
+    AGORA_NAME = os.getenv('AGORA_NAME', 'localhost')
+    JOURNAL_ENTRIES = int(os.getenv('JOURNAL_ENTRIES', 10))
+    RANK = os.getenv('RANK', 'agora').split(',')
     
     # EXPERIMENTS
-    # experiments can be booleans or probabilities (reals in 0..1).
-    # release process: set them initially to False/0 in the DefaultConfig and then override in the right environment.
-    ENABLE_STATS = False
-    ENABLE_OBSIDIAN_ATTACHMENTS = False
-    ENABLE_AUTO_PULL = False
-    ENABLE_AUTO_STOA = False
-
-class ProductionConfig(DefaultConfig):
-    
-    # EXPERIMENTS
-    ENABLE_STATS = True
-    ENABLE_AUTO_PULL = True
-    ENABLE_AUTO_STOA = False
-
-class DevelopmentConfig(DefaultConfig):
-    URL_BASE = "http://localhost:5000"
-    URI_BASE = "localhost:5000"
-
-
-    # EXPERIMENTS
-    ENABLE_STATS = True
-    ENABLE_OBSIDIAN_ATTACHMENTS = True
-    ENABLE_AUTO_PULL = True
-    ENABLE_AUTO_STOA = True
+    ENABLE_STATS = bool(os.getenv('ENABLE_STATS', False))
+    ENABLE_AUTO_PULL = bool(os.getenv('ENABLE_AUTO_PULL', False))
+    ENABLE_AUTO_STOA = bool(os.getenv('ENABLE_AUTO_STOA', False))
