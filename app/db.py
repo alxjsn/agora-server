@@ -632,8 +632,14 @@ def stats():
     return stats
 
 def all_users():
-    # hack hack.
-    users = os.listdir(os.path.join(current_app.config['AGORA_PATH']))
+    items = os.listdir(current_app.config['AGORA_PATH'])
+    users = []
+
+    # only include directories
+    for item in items:
+        if os.path.isdir(os.path.join(current_app.config['AGORA_PATH'], item)):
+            users.append(item)
+
     return sorted([User(u) for u in users], key=lambda x: x.uri.lower())
 
 def user_journals(user):
