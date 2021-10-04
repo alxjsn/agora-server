@@ -29,20 +29,6 @@ def create_app():
     app.config.from_object('app.config.DefaultConfig')
     CORS(app)
 
-    # there's probably a better way to make this distinction, but this works.
-
--    if config == 'ProductionConfig':
--        logging.basicConfig(
--            filename='agora.log',
--            level=logging.WARNING,
--            format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
--            )
--    else:
--        logging.basicConfig(
--            level=logging.DEBUG,
--            format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
--            )
-
     # Add blueprints here.
     from . import agora
     app.register_blueprint(agora.bp)
