@@ -9,10 +9,10 @@ services:
     environment:
       AGORA_PATH: "/home/agora/garden"
       AGORA_NAME: "thisagora"
+      AGORA_DESCRIPTION: "An [[agora]] is an open distributed knowledge graph."
       RANK: "agora"
       ENABLE_STATS: "true"
       ENABLE_AUTO_PULL: "true"
-      ENABLE_AUTO_STOA: "false"
       JOURNAL_ENTRIES: 10
     volumes:
       - .:/app

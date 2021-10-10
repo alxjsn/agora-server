@@ -7,7 +7,8 @@ services:
       - 80:8000
     environment:
       AGORA_PATH: "/home/agora/garden" # (default "/home/agora/garden")
-      AGORA_NAME: "thisagora" # (default thisagora)
+      AGORA_NAME: "thisagora" # (default "thisagora")
+      AGORA_DESCRIPTION: "An [[agora]] is an open distributed knowledge graph." # (default "An [[agora]] is an open distributed knowledge graph.")
       RANK: "agora" # user1,user2,user3 (default "agora")
       ENABLE_STATS: "true" # Enables stats on the nodes page (default true)
       ENABLE_AUTO_PULL: "true" # Enables auto pull functionality for nodes (default true)

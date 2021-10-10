@@ -16,8 +16,8 @@
 
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-  <ShortName>Agora</ShortName>
-  <Description>An [[agora]] is an open distributed knowledge graph.</Description>
+  <ShortName>{{config['AGORA_NAME']}}</ShortName>
+  <Description>{{config['AGORA_DESCRIPTION']}}</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image width="16" height="16" type="image/x-icon">/favicon.ico</Image>
   <Url type="text/html" template="/search?q={searchTerms}">
