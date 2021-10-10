@@ -224,12 +224,11 @@ def composite_go(node0, node1):
         pass
         # return redirect("/%s" % node0)
 
-    base = current_app.config['URL_BASE']
     if len(n0) == 0 and len(n1) == 0:
         # No nodes with either names.
         # Redirect to the composite node, which might exist -- or in any case will provide relevant search.
         current_app.logger.debug(f'redirect 1')
-        return redirect(f'{base}/{node0}-{node1}')
+        return redirect(f'/{node0}-{node1}')
 
     links = []
     if len(n0) != 0:
@@ -246,7 +245,7 @@ def composite_go(node0, node1):
         # No matching links found.
         # Redirect to composite node, which might exist and provides search.
         # TODO(flancian): flash an explanation :)
-        return redirect(f'{base}/{node0}-{node1}')
+        return redirect(f'/{node0}-{node1}')
 
     if len(links) > 1:
         # TODO(flancian): to be implemented.

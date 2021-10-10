@@ -26,7 +26,6 @@ from rdflib import Graph, Namespace, URIRef
 
 def add_node(node: db.Node, g: Graph, only_forward=False):
 
-    base = current_app.config['URL_BASE']
     for linked_node in node.forward_links():
         if re.search('<.*>', linked_node):
             # work around links with html in them (?)
@@ -39,9 +38,9 @@ def add_node(node: db.Node, g: Graph, only_forward=False):
         n0 = node.wikilink
         n1 = linked_node
         g.add((
-            URIRef(f"{base}/{n0}"),
-            URIRef(f"{base}/links"),
-            URIRef(f"{base}/{n1}"),
+            URIRef(f"/{n0}"),
+            URIRef(f"/links"),
+            URIRef(f"/{n1}"),
         ))
 
     if only_forward:
@@ -51,34 +50,33 @@ def add_node(node: db.Node, g: Graph, only_forward=False):
         n0 = backlinking_node
         n1 = node.wikilink
         g.add((
-            URIRef(f"{base}/{n0}"),
-            URIRef(f"{base}/links"),
-            URIRef(f"{base}/{n1}"),
+            URIRef(f"/{n0}"),
+            URIRef(f"/links"),
+            URIRef(f"/{n1}"),
         ))
 
     for pushing_node in node.pushing_nodes():
         n0 = node.wikilink
         n1 = linked_node
         g.add((
-            URIRef(f"{base}/{n0}"),
-            URIRef(f"{base}/pushes"),
-            URIRef(f"{base}/{n1}"),
+            URIRef(f"/{n0}"),
+            URIRef(f"/pushes"),
+            URIRef(f"/{n1}"),
         ))
 
     for pulling_node in node.pulling_nodes():
         n0 = pulling_node
         n1 = node.wikilink
         g.add((
-            URIRef(f"{base}/{n0}"),
-            URIRef(f"{base}/pulls"),
-            URIRef(f"{base}/{n1}"),
+            URIRef(f"/{n0}"),
+            URIRef(f"/pulls"),
+            URIRef(f"/{n1}"),
         ))
 
 def turtle_node(node) -> str:
 
-    base = current_app.config['URL_BASE']
     g = Graph()
-    agora = Namespace("{base}/")
+    agora = Namespace("/")
     g.namespace_manager.bind('agora', agora)
 
     add_node(node, g)
@@ -86,9 +84,8 @@ def turtle_node(node) -> str:
 
 def turtle_nodes(nodes) -> str:
 
-    base = current_app.config['URL_BASE']
     g = Graph()
-    agora = Namespace("{base}/")
+    agora = Namespace("/")
     g.namespace_manager.bind('agora', agora)
 
     print(f"turtling agora using forward links only")
@@ -102,7 +99,6 @@ def turtle_nodes(nodes) -> str:
 
 def parse_node(node: db.Node) -> dict:
 
-    base = current_app.config['URL_BASE']
     d = dict()
     d["nodes"] = []
     d["links"] = []
@@ -116,7 +112,7 @@ def parse_node(node: db.Node) -> dict:
                 # work around links with html in them (?)
                 continue
             if '|' in linked_node:
-                # early support for {base}/go/agora-rfc/2
+                # early support for https://anagora.org/go/agora-rfc/2
                 linked_node = re.sub('|.*', '', linked_node)
             n0 = node.wikilink
             n1 = linked_node
@@ -176,7 +172,7 @@ def parse_node(node: db.Node) -> dict:
 
 
 def json_node(node):
-    # format: {BASE}/force-graph
+    # format: /force-graph
 
     d = parse_node(node)
     return dumps(d)
@@ -184,14 +180,13 @@ def json_node(node):
 
 # technically doesn't belong here but... perhaps this becomes graph.py eventually.
 def json_nodes(nodes):
-    # format: {BASE}/force-graph
+    # format: /force-graph
     # this first redoes the RDF graph and then converts it to JSON.
     # the code duplication can be fixed with refactoring; more important is whether going through RDF makes sense at all.
     # I think because RDF does some cleanup to get to "well formed ids" there might be enough of a benefit from reusing that.
 
-    base = current_app.config('URL_BASE')
     g = Graph()
-    agora = Namespace(f"{base}/")
+    agora = Namespace(f"/")
     g.namespace_manager.bind('agora', agora)
 
     print(f"jsoing agora using forward links only")
