@@ -7,8 +7,8 @@ services:
       - 80:8000
     environment:
       AGORA_PATH: "/home/agora/garden"
-      AGORA_NAME: localhost
-      RANK: 'agora' # user1,user,user3
+      AGORA_NAME: "thisagora"
+      RANK: "agora" # user1,user,user3
       ENABLE_STATS: False
       ENABLE_AUTO_PULL: False
       ENABLE_AUTO_STOA: False

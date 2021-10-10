@@ -2,7 +2,7 @@ import os
 
 class DefaultConfig(object):
     AGORA_PATH = os.getenv('AGORA_PATH', '/home/agora/garden')
-    AGORA_NAME = os.getenv('AGORA_NAME', 'localhost')
+    AGORA_NAME = os.getenv('AGORA_NAME', 'thisagora')
     JOURNAL_ENTRIES = int(os.getenv('JOURNAL_ENTRIES', 10))
     RANK = os.getenv('RANK', 'agora').split(',')
     
