@@ -31,7 +31,7 @@ import lxml.html
 import lxml.etree
 
 # This is, like, unmaintained :) I should reconsider; [[auto pull]] sounds like a better approach?
-# https://anagora.org/auto-pull
+# /auto-pull
 FUZZ_FACTOR = 95
 
 # URIs are ids. 
@@ -279,7 +279,7 @@ class Node:
 
     def pushing(self, other):
         # returns the blocks that this node pushes to one other as "virtual subnodes"
-        # [[push]] as in anagora.org/node/push.
+        # [[push]] as in /node/push.
         #
         # arg other should be a Node.
         #
@@ -484,7 +484,7 @@ class Subnode:
 
     def pull_nodes(self):
         """
-        returns a set of nodes pulled (anagora.org/node/pull) in this subnode
+        returns a set of nodes pulled (/node/pull) in this subnode
         pulls are blocks of the form:
         - [[pull]] [[node]]
         """

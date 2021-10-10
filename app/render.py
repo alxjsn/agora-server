@@ -158,8 +158,6 @@ def trim_front_matter(content, subnode):
 def add_obsidian_embeds(content, subnode):
     OBSIDIAN_REGEX = re.compile('!' + regexes.WIKILINK.pattern)
     OBSIDIAN_EMBED=f'<a href="/raw/garden/{subnode.user}/\\1"><img class="image-embed" src="/raw/garden/{subnode.user}/\\1"></img><p class="obsidian-embed"></a>⥅ [[\\1]]</p>'
-    # also include something like this to move to a lazily loaded div?
-    #<script async src="https://anagora.org.com/widgets.js" charset="utf-8"></script>
     return re.sub(OBSIDIAN_REGEX, OBSIDIAN_EMBED, content)
 
 def preprocess(content, subnode=''):

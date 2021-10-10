@@ -32,7 +32,7 @@ G = db.G
 # The [[agora]] is a [[distributed knowledge graph]].
 # Nodes are the heart of the [[agora]].
 # In the [[agora]] there are no 404s. Everything that can be described with words has a node in the [[agora]].
-# The [[agora]] is a [[search engine]]: anagora.org/agora-search
+# The [[agora]] is a [[search engine]]: /agora-search
 #
 # Flask routes work so that the one closest to the function is the canonical one.
 
@@ -180,7 +180,7 @@ def go(node):
     try:
         n = db.nodes_by_wikilink(node)
     except KeyError:
-        return redirect("https://anagora.org/node/%s" % node)
+        return redirect("/node/%s" % node)
 
     if len(n) > 1:
         current_app.logger.warning(
@@ -188,13 +188,13 @@ def go(node):
 
     if len(n) == 0:
         # No nodes with this name -- redirect to node 404.
-        return redirect("https://anagora.org/node/%s" % node)
+        return redirect("/node/%s" % node)
 
     links = n[0].go()
     if len(links) == 0:
         # No go links detected in this node -- just redirect to the node.
         # TODO(flancian): flash an explanation :)
-        return redirect("https://anagora.org/node/%s" % node)
+        return redirect("/node/%s" % node)
 
     if len(links) > 1:
         # TODO(flancian): to be implemented.
@@ -222,7 +222,7 @@ def composite_go(node0, node1):
         current_app.logger.debug(f'n1: {n1}')
     except KeyError:
         pass
-        # return redirect("https://anagora.org/%s" % node0)
+        # return redirect("/%s" % node0)
 
     base = current_app.config['URL_BASE']
     if len(n0) == 0 and len(n1) == 0:
@@ -317,7 +317,7 @@ def pull(node, other):
     return Response(pushing)
 
 
-# This receives whatever you type in the mini-cli up to the top of anagora.org.
+# This receives whatever you type in the mini-cli up to the top of the page.
 # Then it parses it and redirects to the right node or takes the appropriate action.
 # See https://anagora.org/agora-search, in particular 'design', for more.
 @bp.route('/exec')
