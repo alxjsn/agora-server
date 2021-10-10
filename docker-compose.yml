@@ -9,10 +9,10 @@ services:
     environment:
       AGORA_PATH: "/home/agora/garden"
       AGORA_NAME: "thisagora"
-      RANK: "agora" # user1,user,user3
-      ENABLE_STATS: False
-      ENABLE_AUTO_PULL: False
-      ENABLE_AUTO_STOA: False
+      RANK: "agora"
+      ENABLE_STATS: "true"
+      ENABLE_AUTO_PULL: "true"
+      ENABLE_AUTO_STOA: "false"
       JOURNAL_ENTRIES: 10
     volumes:
       - .:/app

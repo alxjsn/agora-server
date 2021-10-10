@@ -7,6 +7,6 @@ class DefaultConfig(object):
     RANK = os.getenv('RANK', 'agora').split(',')
     
     # EXPERIMENTS
-    ENABLE_STATS = bool(os.getenv('ENABLE_STATS', False))
-    ENABLE_AUTO_PULL = bool(os.getenv('ENABLE_AUTO_PULL', False))
-    ENABLE_AUTO_STOA = bool(os.getenv('ENABLE_AUTO_STOA', False))
+    ENABLE_STATS = bool(os.getenv('ENABLE_STATS', True))
+    ENABLE_AUTO_PULL = bool(os.getenv('ENABLE_AUTO_PULL', True))
+    ENABLE_AUTO_STOA = bool(os.getenv('ENABLE_AUTO_STOA', False)) # Not currently relevant

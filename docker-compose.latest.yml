@@ -6,12 +6,11 @@ services:
     ports:
       - 80:8000
     environment:
-      AGORA_PATH: "/home/agora/garden"
-      AGORA_NAME: "thisagora"
-      RANK: "agora" # user1,user,user3
-      ENABLE_STATS: False
-      ENABLE_AUTO_PULL: False
-      ENABLE_AUTO_STOA: False
-      JOURNAL_ENTRIES: 10
+      AGORA_PATH: "/home/agora/garden" # (default "/home/agora/garden")
+      AGORA_NAME: "thisagora" # (default thisagora)
+      RANK: "agora" # user1,user2,user3 (default "agora")
+      ENABLE_STATS: "true" # Enables stats on the nodes page (default true)
+      ENABLE_AUTO_PULL: "true" # Enables auto pull functionality for nodes (default true)
+      JOURNAL_ENTRIES: 10 # (default 10)
     volumes:
       - ./garden:/home/agora/garden
