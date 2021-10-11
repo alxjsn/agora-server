@@ -25,6 +25,7 @@ from . import util
 from marko import Markdown, inline
 from orgpython import to_html
 from html import escape
+from urllib.parse import quote
 
 
 # Markdown
@@ -42,7 +43,7 @@ class WikilinkRendererMixin(object):
         # return '<span class="wikilink-marker">[[</span><a href="{}">{}</a><span class="wikilink-marker">]]</span>'.format(
         return '<span class="wikilink-marker">[[</span><a href="{}" class="wikilink">{}</a><span class="wikilink-marker">]]</span>'.format(
             # util.canonical_wikilink(self.escape_url(element.target)), self.render_children(element)
-            util.canonical_wikilink(element.target), self.render_children(element)
+            quote(util.canonical_wikilink(element.target)), self.render_children(element)
         )
 # Modified the default behavior of HTMLRenderer to prevent XSS
 class ModifiedHTMLRendererMixin(object):

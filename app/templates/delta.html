@@ -21,7 +21,7 @@
     <div class="delta-nodes">
         <span class="backlinks-header">Recently edited nodes</span><br />
         {% for subnode in subnodes %}
-        <a href="/@{{subnode.user}}/{{subnode.wikilink}}">[[{{subnode.wikilink}}]]</a> by <a href="/@{{subnode.user}}">@{{subnode.user}}</a><br />
+        <a href="/@{{subnode.user}}/{{subnode.wikilink_encoded}}">[[{{subnode.wikilink}}]]</a> by <a href="/@{{subnode.user}}">@{{subnode.user}}</a><br />
         {% endfor %}
     </div>
 {% endblock %}

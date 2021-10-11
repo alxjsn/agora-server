@@ -23,7 +23,7 @@
         <div class="search-agora">
             {% if search %}
             {% for subnode in search %}
-            <a href="/@{{subnode.user}}/{{subnode.wikilink}}">@{{subnode.user}}/{{subnode.wikilink}}</a><br />
+            <a href="/@{{subnode.user}}/{{subnode.wikilink_encoded}}">@{{subnode.user}}/{{subnode.wikilink}}</a><br />
             {% endfor %}
             {% else %}
             No search results.

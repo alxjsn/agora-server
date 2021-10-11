@@ -25,6 +25,7 @@ from . import util
 from collections import defaultdict
 from fuzzywuzzy import fuzz
 from operator import attrgetter
+from urllib.parse import quote
 
 # For [[push]] parsing, perhaps move elsewhere?
 import lxml.html
@@ -167,7 +168,7 @@ class Node:
         self.wikilink = wikilink
         # LOL, this is *not* a uri.
         # TODO(flancian): check where this is used and fix.
-        self.uri = wikilink
+        self.uri = quote(wikilink)
         # ensure wikilinks to journal entries are all shown in iso format
         # (important to do it after self.uri = wikilink to avoid breaking
         # links)
@@ -347,10 +348,12 @@ class Subnode:
     def __init__(self, path, mediatype='text/plain'):
         # Use a subnode's URI as its identifier.
         self.uri = path_to_uri(path)
-        self.url = '/subnode/' + path_to_uri(path)
+        self.uri_encoded = quote(path_to_uri(path))
+        self.url = '/subnode/' + self.uri_encoded
         # Subnodes are attached to the node matching their wikilink.
         # i.e. if two users contribute subnodes titled [[foo]], they both show up when querying node [[foo]].
         self.wikilink = util.canonical_wikilink(path_to_wikilink(path))
+        self.wikilink_encoded = quote(util.canonical_wikilink(path_to_wikilink(path)))
         self.user = path_to_user(path)
         self.mediatype = mediatype
 

@@ -33,14 +33,14 @@ There are <strong>{{stats['edges']}} edges</strong>.
 
 {% for node in nodes %}
 <div class="node">
-     <span class="node-header">→ node <a href="/{{node.uri}}">[[{{node.uri}}]]</a></span>
+     <span class="node-header">→ node <a href="/{{node.uri}}">[[{{node.wikilink}}]]</a></span>
      
          {% for subnode in node.subnodes %}
          <div class="subnode">
              <div class="subnode-header">
                  <span class="subnode-id">↳ subnode <a
-                         href="/@{{subnode.user}}/{{node.uri}}">[[@{{subnode.user}}/{{node.uri}}]]</a></span><br />
-                 <span class="subnode-links">from <a href="/raw/{{subnode.uri}}">{{subnode.uri}}</a> by <a
+                         href="/@{{subnode.user}}/{{node.uri}}">[[@{{subnode.user}}/{{node.wikilink}}]]</a></span><br />
+                 <span class="subnode-links">from <a href="/raw/{{subnode.uri_encoded}}">{{subnode.wikilink}}</a> by <a
                          href="/@{{subnode.user}}">@<span class="subnode-user">{{subnode.user}}</span></a></span>
              </div>
              <span class="subnode-content">{{ subnode.render()|linkify|safe }}</span>
@@ -52,8 +52,8 @@ There are <strong>{{stats['edges']}} edges</strong>.
              <div class="pushed-subnode">
                  <div class="subnode-header">
                      <span class="subnode-id">↳ subnode <a
-                             href="/@{{subnode.user}}/{{node.uri}}">[[@{{subnode.user}}/{{node.uri}}]]</a></span><br />
-                     <span class="subnode-links">pushed from <a href="/sub{{subnode.uri}}">{{subnode.uri}}</a> by <a
+                             href="/@{{subnode.user}}/{{node.uri}}">[[@{{subnode.user}}/{{node.wikilink}}]]</a></span><br />
+                     <span class="subnode-links">pushed from <a href="/sub{{subnode.uri}}">{{subnode.wikilink}}</a> by <a
                              href="/@{{subnode.user}}">@{{subnode.user}}</a></span>
                  </div>
                  <ul>

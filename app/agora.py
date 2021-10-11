@@ -19,7 +19,7 @@ import json
 import re
 from flask import Blueprint, url_for, render_template, current_app, Response, redirect, request, jsonify
 from markupsafe import escape
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, quote
 from . import db
 from . import forms
 from . import graph
@@ -82,7 +82,7 @@ def node(node, extension='', user_list=''):
             search=[],
             pulling_nodes=n.pulling_nodes(),
             pushing_nodes=n.pushing_nodes(),
-            q=n.wikilink.replace('-', '%20'),
+            q=n.uri,
             qstr=n.wikilink.replace('-', ' '),
             render_graph=True if n.back_links() or n.subnodes else False,
             config=current_app.config
@@ -291,8 +291,8 @@ def pull(node):
             search=[],
             pulling_nodes=n.pulling_nodes(),
             pushing_nodes=n.pushing_nodes(),
-            q=n.wikilink.replace('-', '%20'),
-            qstr=n.wikilink.replace('-', ' '),
+            q=n.uri,
+            qstr=n.uri,
             render_graph=False,
             config=current_app.config,
             )
