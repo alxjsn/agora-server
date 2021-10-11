@@ -85,60 +85,46 @@ orgmode = to_html
 # TODO: [[refactor]].
 
 # Twitter embeds.
-def add_twitter_embeds(content, subnode):
-    TWITTER_REGEX='(https://twitter.com/\w+/status/[0-9]+)'
-    TWITTER_EMBED='<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><a href="\\1"></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
-    return re.sub(TWITTER_REGEX, TWITTER_EMBED, content)
+# def add_twitter_embeds(content, subnode):
+#     TWITTER_REGEX='(https://twitter.com/\w+/status/[0-9]+)'
+#     TWITTER_EMBED='<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><a href="\\1"></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
+#     return re.sub(TWITTER_REGEX, TWITTER_EMBED, content)
 
-def add_twitter_pull(content, subnode):
-    TWITTER_REGEX='(https://twitter.com/\w+/status/[0-9]+)'
-    TWITTER_EMBED='\\1 <button class="pull-tweet" value="\\1">pull</button>'
-    return re.sub(TWITTER_REGEX, TWITTER_EMBED, content)
+# def add_twitter_pull(content, subnode):
+#     TWITTER_REGEX='(https://twitter.com/\w+/status/[0-9]+)'
+#     TWITTER_EMBED='\\1 <button class="pull-tweet" value="\\1">pull</button>'
+#     return re.sub(TWITTER_REGEX, TWITTER_EMBED, content)
 
-def add_mastodon_pull(content, subnode):
-    MASTODON_REGEX='(https://[a-zA-Z-.]+/web/statuses/[0-9]+)'
-    MASTODON_REGEX_ALT='(https://[a-zA-Z-.]+/@\w+/[0-9]+)'
-    MASTODON_EMBED='\\1 <button class="pull-mastodon-status" value="\\1">pull</button>'
-    ret = re.sub(MASTODON_REGEX, MASTODON_EMBED, content)
-    ret = re.sub(MASTODON_REGEX_ALT, MASTODON_EMBED, ret)
-    return ret
+# def add_mastodon_pull(content, subnode):
+#     MASTODON_REGEX='(https://[a-zA-Z-.]+/web/statuses/[0-9]+)'
+#     MASTODON_REGEX_ALT='(https://[a-zA-Z-.]+/@\w+/[0-9]+)'
+#     MASTODON_EMBED='\\1 <button class="pull-mastodon-status" value="\\1">pull</button>'
+#     ret = re.sub(MASTODON_REGEX, MASTODON_EMBED, content)
+#     ret = re.sub(MASTODON_REGEX_ALT, MASTODON_EMBED, ret)
+#     return ret
 
-def add_pleroma_pull(content, subnode):
-    PLEROMA_REGEX='(https://[a-zA-Z-.]+/notice/\w+)'
-    PLEROMA_EMBED='\\1 <button class="pull-pleroma-status" value="\\1">pull</button>'
-    ret = re.sub(PLEROMA_REGEX, PLEROMA_EMBED, content)
-    return ret
+# def add_url_pull(content, subnode):
+#     # hacky but, hey, it seems to work often enough and covers wikipedia + wikidata.
+#     # https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
+#     # -> https://regexr.com/3e6m0
+#     # 'http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*'
 
-def old_add_url_pull(content, subnode):
-    # deprecated in favour of arbitrary url pulling.
-    # writer side signals like [[pull]] in subnodes should be interpreted as a petition to [[auto pull]].
-    URL_REGEX='(\[\[pull\]\]) (.+:\/\/.+)'
-    URL_EMBED='<button class="pull-url" value="\\2">pull</button> \\2'
-    ret = re.sub(URL_REGEX, URL_EMBED, content)
-    return ret
+#     # URL_REGEX='(\[\[go\]\]) (.+:\/\/.+)'
+#     # @(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS
+#     # URL_REGEX='(https?:\/\/([^s/?\<>]+wiki.+)'
+#     # URL_REGEX="^[a-z0-9!#$%&'-*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+#     # URL_REGEX='http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*'
+#     URL_REGEX='(https?:\/\/\S+wiki\S+)'
+#     URL_EMBED='\\1 <button class="pull-url" value="\\1">pull</button>'
 
-def add_url_pull(content, subnode):
-    # hacky but, hey, it seems to work often enough and covers wikipedia + wikidata.
-    # https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
-    # -> https://regexr.com/3e6m0
-    # 'http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*'
+#     ret = re.sub(URL_REGEX, URL_EMBED, content)
+#     return ret
 
-    # URL_REGEX='(\[\[go\]\]) (.+:\/\/.+)'
-    # @(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS
-    # URL_REGEX='(https?:\/\/([^s/?\<>]+wiki.+)'
-    # URL_REGEX="^[a-z0-9!#$%&'-*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-    # URL_REGEX='http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*'
-    URL_REGEX='(https?:\/\/\S+wiki\S+)'
-    URL_EMBED='\\1 <button class="pull-url" value="\\1">pull</button>'
-
-    ret = re.sub(URL_REGEX, URL_EMBED, content)
-    return ret
-
-def add_go_button(content, subnode):
-    URL_REGEX='(\[\[go\]\]) (.+:\/\/.+)'
-    URL_EMBED='<button class="go-url" value="\\2">go</button> \\2'
-    ret = re.sub(URL_REGEX, URL_EMBED, content)
-    return ret
+# def add_go_button(content, subnode):
+#     URL_REGEX='(\[\[go\]\]) (.+:\/\/.+)'
+#     URL_EMBED='<button class="go-url" value="\\2">go</button> \\2'
+#     ret = re.sub(URL_REGEX, URL_EMBED, content)
+#     return ret
 
 # Trim front matter until we do something useful with it.
 def trim_front_matter(content, subnode):
@@ -155,20 +141,20 @@ def trim_front_matter(content, subnode):
 #        return []
 
 # Obsidian pasted images / attachments.
-def add_obsidian_embeds(content, subnode):
-    OBSIDIAN_REGEX = re.compile('!' + regexes.WIKILINK.pattern)
-    OBSIDIAN_EMBED=f'<a href="/raw/garden/{subnode.user}/\\1"><img class="image-embed" src="/raw/garden/{subnode.user}/\\1"></img><p class="obsidian-embed"></a>⥅ [[\\1]]</p>'
-    return re.sub(OBSIDIAN_REGEX, OBSIDIAN_EMBED, content)
+# def add_obsidian_embeds(content, subnode):
+#     OBSIDIAN_REGEX = re.compile('!' + regexes.WIKILINK.pattern)
+#     OBSIDIAN_EMBED=f'<a href="/raw/garden/{subnode.user}/\\1"><img class="image-embed" src="/raw/garden/{subnode.user}/\\1"></img><p class="obsidian-embed"></a>⥅ [[\\1]]</p>'
+#     return re.sub(OBSIDIAN_REGEX, OBSIDIAN_EMBED, content)
 
 def preprocess(content, subnode=''):
-    filters = [trim_front_matter, add_obsidian_embeds, add_url_pull]
+    filters = [trim_front_matter]
     for f in filters:
         content = f(content, subnode)
     return content
 
 def postprocess(content, subnode=''):
     # filters = [add_twitter_embeds]
-    filters = [add_twitter_pull, add_mastodon_pull, add_pleroma_pull]
+    filters = []
     for f in filters:
         content = f(content, subnode)
     return content
