@@ -73,30 +73,6 @@ def add_node(node: db.Node, g: Graph, only_forward=False):
             URIRef(f"/{n1}"),
         ))
 
-def turtle_node(node) -> str:
-
-    g = Graph()
-    agora = Namespace("/")
-    g.namespace_manager.bind('agora', agora)
-
-    add_node(node, g)
-    return g.serialize(format="turtle")
-
-def turtle_nodes(nodes) -> str:
-
-    g = Graph()
-    agora = Namespace("/")
-    g.namespace_manager.bind('agora', agora)
-
-    print(f"turtling agora using forward links only")
-    node_count = len(nodes)
-    print(f"node count: {node_count}")
-
-    for node in nodes:
-        add_node(node, g, only_forward=True)
-
-    return g.serialize(format="turtle")
-
 def parse_node(node: db.Node) -> dict:
 
     d = dict()

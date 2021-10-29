@@ -67,7 +67,6 @@ def go(q, tokens):
     #    if there is not:
     #        return (False, 0.0)
 
-
 def tw(q, tokens):
     # performs a twitter search
     if tokens[0] == 'tw':
@@ -86,34 +85,6 @@ def tw(q, tokens):
                 Confidence.high, 
                 lambda: redirect(f'https://twitter.com/search/?f=live&q=from%3A{user}%20{search}'),
                 "Twitter search")
-
-    else:
-        return Bid(Confidence.null, lambda: False)
-
-
-def yubnub(q, tokens):
-    yubnub_tokens = [
-            'wp', # wikipedia 
-            'am', # amazon (us)
-            'amde', # amazon (de)
-            'tpb', # the pirate bay
-            'hdl', # libgen
-            'lbn', # libgen
-            'yt', # youtube
-            'spotify', # spotify
-            'goog', # google
-            'g', # google
-            'ddg', # ddg
-            'imdb', # imdb
-            'mdn', # developer.mozilla.org
-            'academia', # academia.edu
-            ]
-
-    if tokens[0] in yubnub_tokens and len(tokens) > 1:
-        return Bid(
-                Confidence.high, 
-                lambda: redirect(f'https://yubnub.org/parser/parse?command={q}'),
-                "Yubnub command")
     else:
         return Bid(Confidence.null, lambda: False)
 
@@ -128,8 +99,7 @@ def node(q, tokens):
 PROVIDERS = [
         node, 
         go,
-        tw,
-        yubnub,
+        tw
         ]
 
 

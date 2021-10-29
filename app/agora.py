@@ -88,22 +88,6 @@ def node(node, extension='', user_list=''):
             config=current_app.config
             )
 
-@bp.route('/ttl/<node>') # perhaps deprecated
-@bp.route('/turtle/<node>')
-@bp.route('/graph/turtle/<node>')
-def turtle(node):
-    n = G.node(node)
-    return Response(graph.turtle_node(n), mimetype='text/turtle')
-
-
-@bp.route('/graph/turtle/all')
-@bp.route('/graph/turtle')
-def turtle_all():
-
-    nodes = G.nodes().values()
-    return Response(graph.turtle_nodes(nodes), mimetype='text/turtle')
-
-
 @bp.route('/graph/json')
 def graph_js():
     nodes = G.nodes().values()
@@ -133,7 +117,6 @@ def subnode(node, user):
 
 # Special
 
-
 @bp.route('/')
 def index():
     return redirect(url_for('.node', node='index'))
@@ -160,18 +143,8 @@ def tomorrow():
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     return redirect("/%s" % tomorrow.strftime("%Y-%m-%d"))
 
-
-@bp.route('/regexsearch', methods=('GET', 'POST'))
-def regexsearch():
-    """mostly deprecated in favour of jump-like search, left around for now though."""
-    form = forms.SearchForm()
-    if form.validate_on_submit():
-        return render_template('regexsearch.html', form=form, subnodes=db.search_subnodes(form.query.data))
-    return render_template('regexsearch.html', form=form)
-
 # Actions
 # Simple go.
-
 
 @bp.route('/go/<node>')
 def go(node):
@@ -206,7 +179,6 @@ def go(node):
 
 # Composite go.
 # This is a hack, needs to be replaced with proper generic node/block "algebra".
-
 
 @bp.route('/go/<node0>/<node1>')
 def composite_go(node0, node1):
@@ -320,7 +292,6 @@ def pull(node, other):
 # Then it parses it and redirects to the right node or takes the appropriate action.
 # See https://anagora.org/agora-search, in particular 'design', for more.
 @bp.route('/exec')
-@bp.route('/jump')
 @bp.route('/search')
 def search():
     """Redirects to an appropriate context.
@@ -351,7 +322,7 @@ def search():
     # log a warning if it does :)
     current_app.logger.warning(
         'Node catch-all in agora.py triggered; should never happen (tm).')
-    return redirect(url_for('.node', node=util.slugify(q)))
+    return url_for('.node', node=util.slugify(q))
 
 
 @bp.route('/subnode/<path:subnode>')
@@ -372,13 +343,6 @@ def user(user):
 def user_json(user):
     subnodes = list(map(lambda x: x.wikilink, db.subnodes_by_user(user)))
     return jsonify(jsons.dump(subnodes))
-
-
-@bp.route('/garden/<garden>')
-def garden(garden):
-    current_app.logger.warning('Not implemented.')
-    return 'If I had implemented rendering gardens already, here you would see garden named "%s".' % escape(garden)
-
 
 # Lists
 @bp.route('/nodes')
@@ -467,32 +431,3 @@ def settings():
 @bp.route('/search.xml')
 def search_xml():
     return render_template('search.xml'), 200, {'Content-Type': 'application/opensearchdescription+xml'}
-
-def count_votes(subnode):
-    match = re.search("\#(\w+)", subnode.content)
-    if not match:
-        return None
-    tag = match.group(1)
-    return {"user": subnode.user, "vote": tag}
-
-@bp.route('/proposal/<user>/<node>')
-def proposal(user,node):
-    n = G.node(node)
-    subnode = next(x for x in n.subnodes if x.user == user)
-    other_nodes = [x for x in n.subnodes if x.user != user]
-    print("subnode", subnode)
-    print("other nodes", other_nodes)
-    votes = list(filter(None,map(count_votes, other_nodes)))
-    print("votes", votes)
-    vote_options = [x.get('vote') for x in votes]
-    print("options", vote_options)
-    vote_counts = collections.Counter(vote_options)
-    print("counts", vote_counts)
-    return render_template(
-        'proposal.html',
-        node=n,
-        subnode=subnode,
-        votes=votes,
-        vote_options=vote_options,
-        vote_counts=json.dumps(vote_counts)
-    )
