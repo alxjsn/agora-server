@@ -39,6 +39,6 @@ As you might have inferred from the above, this project is based on [Flask](http
 
 ```app/db.py``` has logic to read/process notes. The db is actually the filesystem :)
 
-```app/js-src``` has Javascript and Typescript sources.
+```js-src``` has Javascript and Typescript sources.
 
 ```app/templates``` are Jinja2 templates.

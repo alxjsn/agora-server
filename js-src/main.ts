@@ -141,23 +141,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const autoPull = JSON.parse(localStorage["autoPull"] || 'false')
 
   // pull a tweet using the laziest way I found, might be a better one
-  $(".pull-tweet").click(function(e) {
-      this.innerText = 'pulling';
-      let tweet = this.value;
-      $(e.currentTarget).after('<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><a href="' + tweet + '"></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
-      this.innerText = 'pulled?';
-  });
+  // $(".pull-tweet").click(function(e) {
+  //     this.innerText = 'pulling';
+  //     let tweet = this.value;
+  //     $(e.currentTarget).after('<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><a href="' + tweet + '"></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+  //     this.innerText = 'pulled?';
+  // });
 
   if(autoPull){
     console.log('auto pulling!');
-    $(".pull-mastodon-status").each(function(e) {
-        console.log('auto pulling activity');
-        this.click();
-    });
-    $(".pull-tweet").each(function(e) {
-        console.log('auto pulling tweet');
-        this.click();
-    });
+    // $(".pull-mastodon-status").each(function(e) {
+    //     console.log('auto pulling activity');
+    //     this.click();
+    // });
+    // $(".pull-tweet").each(function(e) {
+    //     console.log('auto pulling tweet');
+    //     this.click();
+    // });
     /*
      * this might be too disruptive?
     $(".pull-url").each(function(e) {
@@ -165,10 +165,10 @@ document.addEventListener("DOMContentLoaded", function () {
         this.click();
     });
     */
-    $("#pull-stoa").each(function(e) {
-        console.log('auto pulling stoa');
-        this.click();
-    });
+    // $("#pull-stoa").each(function(e) {
+    //     console.log('auto pulling stoa');
+    //     this.click();
+    // });
     $(".pull-node").each(function(e) {
         console.log('auto pulling node');
         this.click();
@@ -180,58 +180,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  function statusContent(self){
-    let toot = self.value;
-    let domain, post;
-    // extract instance and :id, then use https://docs.joinmastodon.org/methods/statuses/ and get an oembed
-    // there are two kinds of statuses we want to be able to embed: /web/ led and @user led.
-    const web_regex = /(https:\/\/[a-zA-Z-.]+)\/web\/statuses\/([0-9]+)/ig
-    const user_regex = /(https:\/\/[a-zA-Z-.]+)\/@\w+\/([0-9]+)/ig
+  // function statusContent(self){
+  //   let toot = self.value;
+  //   let domain, post;
+  //   // extract instance and :id, then use https://docs.joinmastodon.org/methods/statuses/ and get an oembed
+  //   // there are two kinds of statuses we want to be able to embed: /web/ led and @user led.
+  //   const web_regex = /(https:\/\/[a-zA-Z-.]+)\/web\/statuses\/([0-9]+)/ig
+  //   const user_regex = /(https:\/\/[a-zA-Z-.]+)\/@\w+\/([0-9]+)/ig
 
-    console.log("testing type of presumed mastodon embed: " + toot);
-    if (m = web_regex.exec(toot)) {
-        console.log("found status of type /web/");
-        domain = m[1];
-        post = m[2];
-    }
-    if (m = user_regex.exec(toot)) {
-        console.log("found status of type /@user/");
-        domain = m[1];
-        post = m[2];
-    }
+  //   console.log("testing type of presumed mastodon embed: " + toot);
+  //   if (m = web_regex.exec(toot)) {
+  //       console.log("found status of type /web/");
+  //       domain = m[1];
+  //       post = m[2];
+  //   }
+  //   if (m = user_regex.exec(toot)) {
+  //       console.log("found status of type /@user/");
+  //       domain = m[1];
+  //       post = m[2];
+  //   }
 
-    req = domain + '/api/v1/statuses/' + post
-    console.log('req: ' + req)
-    $.get(req, function(data) {
-        console.log('status: ' + data['url'])
-        let actual_url = data['url']
+  //   req = domain + '/api/v1/statuses/' + post
+  //   console.log('req: ' + req)
+  //   $.get(req, function(data) {
+  //       console.log('status: ' + data['url'])
+  //       let actual_url = data['url']
 
-        let oembed_req = domain + '/api/oembed?url=' + actual_url 
-        $.get(oembed_req, function(data) {
-            console.log('oembed: ' + data['html'])
-            let html = data['html']
-            $(self).after(html);
-        });
-    });
-    self.innerText = 'pulled';
-  }
-  // pull a mastodon status (toot) using the roughly correct way IIUC.
-  $(".pull-mastodon-status").click(function(e) {
-    statusContent(this)
-  });
+  //       let oembed_req = domain + '/api/oembed?url=' + actual_url 
+  //       $.get(oembed_req, function(data) {
+  //           console.log('oembed: ' + data['html'])
+  //           let html = data['html']
+  //           $(self).after(html);
+  //       });
+  //   });
+  //   self.innerText = 'pulled';
+  // }
+  // // pull a mastodon status (toot) using the roughly correct way IIUC.
+  // $(".pull-mastodon-status").click(function(e) {
+  //   statusContent(this)
+  // });
 
-  if(autoPull){
-    $(".pull-mastodon-status").each(function() {
-      statusContent(this)
-    })
-  }
+  // if(autoPull){
+  //   $(".pull-mastodon-status").each(function() {
+  //     statusContent(this)
+  //   })
+  // }
 
-  // pull a pleroma status (toot) using the laziest way I found, might be a better one
-  $(".pull-pleroma-status").click(function(e) {
-      let toot = this.value;
-      $(e.currentTarget).after('<br /><iframe src="' + toot + '" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://freethinkers.lgbt/embed.js" async="async"></script>')
-      this.innerText = 'pulled';
-  });
+  // // pull a pleroma status (toot) using the laziest way I found, might be a better one
+  // $(".pull-pleroma-status").click(function(e) {
+  //     let toot = this.value;
+  //     $(e.currentTarget).after('<br /><iframe src="' + toot + '" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://freethinkers.lgbt/embed.js" async="async"></script>')
+  //     this.innerText = 'pulled';
+  // });
 
   // go to the specified URL
   $(".go-url").click(function(e) {
@@ -241,47 +241,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
-
-
-function getRandomColor() {
-  var letters = '0123456789ABCDEF'.split('');
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
-function getRandom(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function sortObjectEntries(obj) {
-  return Object.entries(obj).sort((a, b) => b[1] - a[1]).map(el => el[0])
-}
-
-function loadGraph() {
-  const colorNames = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A"]
-  const ctx = document.getElementById('myChart');
-  const json = $('#proposal-data').text()
-  const data = JSON.parse(json)
-  // const fillPattern = ctx.createPattern(img, 'repeat');
-  const colors = Object.values(data).map(() => colorNames.shift())
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: sortObjectEntries(data),
-      datasets: [{
-        label: '# of Votes',
-        data: Object.values(data).sort(function (a, b) { return b - a }),
-        borderWidth: 1,
-        backgroundColor: colors
-      }]
-    },
-
-  });
-
-}
-
-
-
