@@ -117,6 +117,10 @@ h6 {
     font-size: calc(var(--base-fontsize) / var(--header-scale) / var(--header-scale));
 }
 
+ul {
+    list-style-type: disc;
+}
+
 .content blockquote {
     padding-left: 0.5em;
     margin-left: 1em;
